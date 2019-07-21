@@ -10,11 +10,21 @@ import FormControl from '@material-ui/core/FormControl'
 const useStyles = makeStyles(theme => ({
   container: {
     display: 'flex',
-    flexWrap: 'wrap'
+    flexWrap: 'wrap',
+    position: 'absolute',
+    'z-index': '100000',
+    top: '10px',
+    left: '10px',
+    'background-color': 'white',
+    width: 'fit-content'
   },
   formControl: {
     margin: theme.spacing(1),
     minWidth: 120
+  },
+  formControlButton: {
+    'padding-top': '10px',
+    margin: theme.spacing(1)
   }
 }))
 
@@ -84,13 +94,15 @@ export function GeoMenu({ handleClick, disabled = false }) {
         </Select>
       </FormControl>
 
-      <Button
-        onClick={() => handleClick(values)}
-        variant="contained"
-        disabled={disabled}
-      >
-        Apply
-      </Button>
+      <FormControl className={classes.formControlButton}>
+        <Button
+          onClick={() => handleClick(values)}
+          variant="contained"
+          disabled={disabled}
+        >
+          Apply
+        </Button>
+      </FormControl>
     </div>
   )
 }
