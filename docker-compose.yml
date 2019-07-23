@@ -1,0 +1,34 @@
+version: "3"
+
+services:
+  common: &BASE
+    build: &BASE_BUILD
+      context: .
+
+  dev:
+    <<: *BASE
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/usr/src/app
+    environment:
+      REACT_APP_SOME_KEY: http://localhost:8080/
+    command: yarn start
+
+  production:
+    <<: *BASE
+    ports:
+      - '5000:5000'
+    environment:
+      REACT_APP_SOME_KEY: http://localhost:8080/
+    command: bash -c 'yarn build && serve -s build'
+
+  storybook:
+    <<: *BASE
+    command: yarn storybook
+    ports:
+      - '6006:6006'
+
+  tests:
+    <<: *BASE
+    command: bash -c 'CI=true yarn test'
